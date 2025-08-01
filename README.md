@@ -17,8 +17,7 @@ A cute and romantic slot machine web app built with **HTML, CSS, and JavaScript*
 
 ## 🚀 Live Demo
 
-Try it live here: [https://rdenyu.github.io/GF-DAY-PROJECT/\](https://rdenyu.github.io/GF-DAY-PROJECT/)
-
+Try it live here: https://rdenyu.github.io/GF-DAY-PROJECT/
 ---
 
 ## 📁 Project Structure
