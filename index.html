@@ -1,26 +1,47 @@
-<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>🎰 Lucky Love Slot</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Girlfriend Day Slot Machine</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <div class="container">
-    <h1>🎰 Happy Girlfriend Day! 💖</h1>
-    <div class="slot-machine">
-      <div class="reel" id="reel1">💌</div>
-      <div class="reel" id="reel2">🌹</div>
-      <div class="reel" id="reel3">💖</div>
-    </div>
-    <button id="lever">🎲 PULL!</button>
-    <div id="message"></div>
+  <div class="toggle-container">
+    <label><input type="checkbox" id="darkToggle"> 🌙 Dark Mode</label>
+    <button class="mute-btn" id="muteBtn">🔇 Mute Music</button>
   </div>
-  <audio id="bg-music" src="https://cdn.pixabay.com/download/audio/2022/12/06/audio_b4c0f76e2d.mp3?filename=romantic-background-ambient-piano-126047.mp3" loop></audio>
-  <audio id="lever-sound" src="https://cdn.pixabay.com/download/audio/2023/03/15/audio_ae1b916f91.mp3?filename=slot-machine-pull-143829.mp3"></audio>
-  <audio id="win-sound" src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_c78e13edbd.mp3?filename=success-fanfare-trumpets-6185.mp3"></audio>
 
+  <h1>🎰 Love Slot Machine 🎰</h1>
+
+  <div class="slot-machine-wrapper">
+    <div class="slot-machine">
+      <div class="slot" id="slot1">You are my</div>
+      <div class="slot" id="slot2">beautiful</div>
+      <div class="slot" id="slot3">sunshine ☀️</div>
+    </div>
+    <div class="pull-lever" id="lever">
+      <div class="lever-ball"></div>
+      <div class="lever-stick"></div>
+    </div>
+  </div>
+
+  <div class="result" id="result"></div>
+  <div class="personal-message" id="personalMessage"></div>
+
+  <div>
+    <label for="musicSelect">🎵 Choose Background Music:</label>
+    <select class="music-select" id="musicSelect">
+      <option value="https://www.bensound.com/bensound-music/bensound-romantic.mp3">Romantic</option>
+      <option value="https://www.bensound.com/bensound-music/bensound-sunny.mp3">Sunny</option>
+      <option value="https://www.bensound.com/bensound-music/bensound-love.mp3">Love</option>
+    </select>
+  </div>
+
+  <audio id="spinSound" src="https://www.fesliyanstudios.com/play-mp3/387" preload="auto"></audio>
+  <audio id="dingSound" src="https://www.fesliyanstudios.com/play-mp3/6677" preload="auto"></audio>
+  <audio id="bgMusic" src="https://www.bensound.com/bensound-music/bensound-romantic.mp3" autoplay loop preload="auto"></audio>
+
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
   <script src="script.js"></script>
 </body>
 </html>
