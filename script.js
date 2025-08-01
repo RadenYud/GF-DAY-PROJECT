@@ -1,75 +1,80 @@
-const messages = [
-  "You + Me = ❤️",
-  "You're my jackpot! 🎰",
-  "I love you more every spin 💞",
-  "Forever with you 💍",
-  "You're my lucky charm 🍀"
+const slot1Options = [
+  "You are my", "You're forever my", "Truly my", "Always my", "No doubt you're my", "My sweet"
 ];
 
-const icons = ["💌", "💖", "💘", "💝", "🌹", "😍", "😘", "💕", "🥰"];
+const slot2Options = [
+  "adorable", "gorgeous", "radiant", "funny", "lovely", "cuddly", "goofy", "bubbly", "beautiful", "magical"
+];
 
-const lever = document.getElementById("lever");
-const reel1 = document.getElementById("reel1");
-const reel2 = document.getElementById("reel2");
-const reel3 = document.getElementById("reel3");
-const message = document.getElementById("message");
+const slot3Options = [
+  "sunshine ☀️", "moonlight 🌙", "snack 🍫", "angel 👼", "sparkle ✨", "miracle 🌈", "heartbeat 💓", "comfort ☕", "star 🌟", "favorite hello 👋"
+];
 
-const bgMusic = document.getElementById("bg-music");
-const leverSound = document.getElementById("lever-sound");
-const winSound = document.getElementById("win-sound");
+const lever = document.getElementById('lever');
+lever.addEventListener('click', spinSlots);
 
-function playConfetti() {
-  const jsConfetti = new JSConfetti();
-  jsConfetti.addConfetti({
-    emojis: ['💖', '🌹', '🥰', '💘', '💝'],
-    emojiSize: 40,
-    confettiNumber: 60,
-  });
-}
+function spinSlots() {
+  lever.removeEventListener('click', spinSlots);
+  lever.classList.add('pulled');
+  setTimeout(() => lever.classList.remove('pulled'), 1000);
 
-function spin() {
-  lever.disabled = true;
-  leverSound.play();
+  const slot1 = document.getElementById('slot1');
+  const slot2 = document.getElementById('slot2');
+  const slot3 = document.getElementById('slot3');
+  const result = document.getElementById('result');
+  const personalMessage = document.getElementById('personalMessage');
+  const spinSound = document.getElementById('spinSound');
+  const dingSound = document.getElementById('dingSound');
 
-  const interval = setInterval(() => {
-    reel1.textContent = icons[Math.floor(Math.random() * icons.length)];
-    reel2.textContent = icons[Math.floor(Math.random() * icons.length)];
-    reel3.textContent = icons[Math.floor(Math.random() * icons.length)];
-  }, 100);
+  spinSound.currentTime = 0;
+  spinSound.play();
+
+  result.style.opacity = 0;
+  personalMessage.style.opacity = 0;
+
+  const s1 = randomItem(slot1Options);
+  const s2 = randomItem(slot2Options);
+  const s3 = randomItem(slot3Options);
+
+  setTimeout(() => slot1.innerHTML = `<span class="slot-text">${s1}</span>`, 500);
+  setTimeout(() => slot2.innerHTML = `<span class="slot-text">${s2}</span>`, 1000);
+  setTimeout(() => slot3.innerHTML = `<span class="slot-text">${s3}</span>`, 1500);
 
   setTimeout(() => {
-    clearInterval(interval);
-    const icon1 = icons[Math.floor(Math.random() * icons.length)];
-    const icon2 = icons[Math.floor(Math.random() * icons.length)];
-    const icon3 = icons[Math.floor(Math.random() * icons.length)];
+    const finalText = `${s1} ${s2} ${s3}!`;
+    result.textContent = finalText;
+    result.style.opacity = 1;
+    dingSound.play();
+    confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } });
 
-    reel1.textContent = icon1;
-    reel2.textContent = icon2;
-    reel3.textContent = icon3;
+    personalMessage.textContent = `I just want to say... ${s1.toLowerCase()} ${s2} ${s3}, and I feel so lucky. 💖`;
+    personalMessage.style.opacity = 1;
 
-    if (icon1 === icon2 && icon2 === icon3) {
-      const randomMsg = messages[Math.floor(Math.random() * messages.length)];
-      message.textContent = `💘 ${randomMsg} 💘`;
-      winSound.play();
-      playConfetti();
-    } else {
-      message.textContent = "Try again, my love! 💫";
-    }
-
-    lever.disabled = false;
-  }, 2000);
+    lever.addEventListener('click', spinSlots);
+  }, 1800);
 }
 
-lever.addEventListener("click", spin);
+function randomItem(arr) {
+  return arr[Math.floor(Math.random() * arr.length)];
+}
 
-// Play background music on first interaction
-document.body.addEventListener("click", () => {
-  if (bgMusic.paused) {
-    bgMusic.play();
-  }
+document.getElementById('darkToggle').addEventListener('change', () => {
+  document.body.classList.toggle('dark-mode');
+});
+
+const bgMusic = document.getElementById('bgMusic');
+document.addEventListener('click', () => {
+  bgMusic.play().catch(() => {});
 }, { once: true });
 
-// Load confetti
-const script = document.createElement("script");
-script.src = "https://cdn.jsdelivr.net/npm/js-confetti@latest";
-document.head.appendChild(script);
+const muteBtn = document.getElementById('muteBtn');
+muteBtn.addEventListener('click', () => {
+  bgMusic.muted = !bgMusic.muted;
+  muteBtn.textContent = bgMusic.muted ? '🔈 Unmute Music' : '🔇 Mute Music';
+});
+
+const musicSelect = document.getElementById('musicSelect');
+musicSelect.addEventListener('change', () => {
+  bgMusic.src = musicSelect.value;
+  bgMusic.play();
+});
