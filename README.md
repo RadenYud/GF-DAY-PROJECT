@@ -30,4 +30,4 @@ This project is live at:
 
 ### 💘 For Her Eyes Only 💘
 
-Made with 💗 by [Your Name]  
+Made with 💗 by RADEN YOUR LOVE
